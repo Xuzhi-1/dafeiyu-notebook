@@ -1,0 +1,87 @@
+{
+  "name": "dafeiyu-notebook",
+  "productName": "大肥鱼笔记本",
+  "version": "2.1.1",
+  "description": "本地优先的块式笔记与文档编辑器",
+  "type": "module",
+  "main": "electron/main.cjs",
+  "license": "MIT",
+  "author": "续止",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/clean.mjs && tsc -p tsconfig.json && node scripts/copy-assets.mjs",
+    "dev": "npm run build && electron . --dev",
+    "start": "electron .",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "check": "npm run typecheck && npm run test && npm run build",
+    "smoke": "node scripts/smoke.mjs",
+    "smoke:color": "node scripts/smoke-color.mjs",
+    "smoke:system": "node scripts/smoke-system.mjs",
+    "bench": "node scripts/bench.mjs",
+    "plugin:check": "node scripts/plugin-check.mjs",
+    "clean": "node scripts/clean.mjs",
+    "smoke:security": "node scripts/smoke-security.mjs",
+    "smoke:table": "node scripts/smoke-table.mjs",
+    "smoke:format": "node scripts/smoke-format.mjs",
+    "dist": "npm run build && electron-builder --win nsis --x64"
+  },
+  "devDependencies": {
+    "electron": "44.5.1",
+    "electron-builder": "^26.0.12",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  },
+  "dependencies": {
+    "html-to-docx": "^1.8.0",
+    "mammoth": "^1.8.0"
+  },
+  "build": {
+    "appId": "com.dafeiyu.notebook",
+    "productName": "大肥鱼笔记本",
+    "extraMetadata": {
+      "productName": "大肥鱼笔记本"
+    },
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "asar": false,
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "preload.cjs",
+      "app.ico",
+      "大肥鱼笔记.dfy",
+      "package.json",
+      "plugins/**/*"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.ico",
+      "executableName": "DafeiyuNotebook"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowElevation": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "大肥鱼笔记本",
+      "uninstallDisplayName": "大肥鱼笔记本",
+      "deleteAppDataOnUninstall": false,
+      "runAfterFinish": true,
+      "include": "build/installer.nsh"
+    },
+    "artifactName": "大肥鱼笔记本-${version}.${ext}",
+    "electronDist": "node_modules/electron/dist"
+  }
+}

@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' moye-plugin:; font-src 'self' data:; connect-src 'none';" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>大肥鱼笔记本</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div id="boot-screen" class="boot-screen">正在打开文档…</div>
+  <header class="titlebar" id="titlebar">
+    <span class="titlebar-title" id="titlebar-title">大肥鱼笔记本</span>
+    <div class="titlebar-search" id="titlebar-search">
+      <span class="titlebar-search-icon" data-icon="search"></span>
+      <input id="titlebar-search-input" type="text" placeholder="搜索" autocomplete="off" spellcheck="false" aria-label="搜索" />
+    </div>
+    <div class="titlebar-buttons">
+      <button type="button" id="win-min" title="最小化">─</button>
+      <button type="button" id="win-max" title="最大化">□</button>
+      <button type="button" id="win-close" title="关闭">×</button>
+    </div>
+  </header>
+
+  <header class="toolbar" id="toolbar">
+    <button type="button" id="btn-file" class="tb-file">文件 <span class="caret" aria-hidden="true"></span></button>
+    <button type="button" id="btn-save" class="tb-icon" data-icon="save" title="保存"></button>
+    <span class="tb-sep"></span>
+    <button type="button" id="btn-outline" class="tb-text" title="目录显隐"><span class="tb-ic" data-icon="sidebar"></span><span>目录</span></button>
+    <span class="tb-sep"></span>
+    <button type="button" id="btn-undo" class="tb-icon" data-icon="undo" title="撤销"></button>
+    <button type="button" id="btn-redo" class="tb-icon" data-icon="redo" title="重做"></button>
+    <span class="tb-sep"></span>
+    <button type="button" id="btn-add" class="tb-icon" title="新增块">＋</button>
+    <span class="tb-sep"></span>
+    <div class="font-picker" id="font-picker">
+      <button type="button" id="font-family-button" class="font-select" title="字体" aria-haspopup="listbox" aria-expanded="false">
+        <span id="font-family-label">字体</span>
+      </button>
+      <select id="font-family" hidden></select>
+    </div>
+    <div class="tb-size" id="size-control">
+      <input id="font-size-input" class="size-value-input" type="text" inputmode="numeric" value="16" aria-label="字号" />
+      <button type="button" id="font-size-menu" class="tb-caret size-menu-btn" title="选择字号" aria-label="选择字号"></button>
+    </div>
+    <span class="tb-sep"></span>
+    <button type="button" id="btn-bold" class="tb-icon tb-bold" title="加粗">B</button>
+    <button type="button" id="btn-italic" class="tb-icon tb-italic" title="斜体">I</button>
+    <button type="button" id="btn-underline" class="tb-icon tb-underline" title="下划线">U</button>
+    <button type="button" id="btn-strike" class="tb-icon tb-strike" title="删除线">S</button>
+    <span class="style-split">
+      <button type="button" id="btn-text-color" class="tb-icon text-color-button" title="文字颜色"><span class="text-color-glyph">A</span></button>
+      <button type="button" id="btn-text-color-more" class="tb-caret" title="文字颜色样式">▾</button>
+    </span>
+    <span class="tb-sep"></span>
+    <button type="button" id="btn-left" class="tb-icon" data-icon="alignLeft" title="左对齐"></button>
+    <button type="button" id="btn-center" class="tb-icon" data-icon="alignCenter" title="居中"></button>
+    <button type="button" id="btn-right" class="tb-icon" data-icon="alignRight" title="右对齐"></button>
+    <button type="button" id="btn-justify" class="tb-icon" data-icon="alignJustify" title="两端对齐"></button>
+    <span class="tb-sep"></span>
+    <button type="button" id="btn-insert-image" class="tb-icon" data-icon="image" title="插入图片"></button>
+    <button type="button" id="btn-table" class="tb-icon" data-icon="table" title="插入表格"></button>
+    <button type="button" id="btn-chart" class="tb-icon tb-chart" data-icon="chart" title="插入图表"></button>
+    <button type="button" id="btn-link" class="tb-icon" data-icon="link" title="链接"></button>
+    <span class="tb-sep"></span>
+    <span class="style-split">
+      <button type="button" id="btn-highlight" class="tb-icon" title="高亮"><span class="tb-highlight-merged" data-mode="marker" aria-hidden="true">A</span></button>
+      <button type="button" id="btn-highlight-more" class="tb-caret" title="高亮样式">▾</button>
+    </span>
+    <span class="tb-sep"></span>
+    <span class="mark-split">
+      <button type="button" id="btn-mark" class="tb-text" title="标记"><span class="tb-ic" data-icon="star"></span><span>标记</span></button>
+      <button type="button" id="btn-mark-more" class="tb-caret" title="标记样式">▾</button>
+    </span>
+    <span class="mark-split">
+      <button type="button" id="btn-comment" class="tb-text" title="注释"><span class="tb-ic" data-icon="comment"></span><span>注释</span></button>
+      <button type="button" id="btn-comment-more" class="tb-caret" title="注释样式">▾</button>
+    </span>
+    <div class="toolbar-group" id="plugin-actions" hidden></div>
+    <span class="tb-spacer"></span>
+    <span id="save-state" class="tb-saved">已保存</span>
+    <button type="button" id="btn-more" class="tb-gear" data-icon="sliders" title="更多"></button>
+  </header>
+
+  <div class="file-menu" id="file-menu" hidden>
+    <button type="button" id="btn-new" class="menu-item"><span class="menu-ic" data-icon="doc"></span><span class="menu-label">新建文档</span></button>
+    <button type="button" id="btn-open" class="menu-item"><span class="menu-ic" data-icon="open"></span><span class="menu-label">打开文档…</span><span class="menu-key">Ctrl O</span></button>
+    <button type="button" id="btn-open-window" class="menu-item"><span class="menu-ic" data-icon="open"></span><span class="menu-label">在新窗口打开…</span></button>
+    <div class="menu-sep"></div>
+    <div class="menu-title">最近打开</div>
+    <div id="recent-list" class="menu-recent"></div>
+    <div class="menu-sep"></div>
+    <button type="button" id="btn-save-menu" class="menu-item"><span class="menu-ic" data-icon="save"></span><span class="menu-label">保存</span><span class="menu-key">Ctrl S</span></button>
+    <button type="button" id="btn-save-as" class="menu-item"><span class="menu-ic" data-icon="save"></span><span class="menu-label">另存为…</span><span class="menu-key">Ctrl Shift S</span></button>
+    <button type="button" id="btn-import" class="menu-item"><span class="menu-ic" data-icon="import"></span><span class="menu-label">导入 Word / Markdown / 文本…</span></button>
+    <button type="button" id="btn-associate" class="menu-item"><span class="menu-ic" data-icon="open"></span><span class="menu-label">关联 .dfy 文件</span></button>
+    <div class="menu-sep"></div>
+    <button type="button" id="btn-export-docx" class="menu-item"><span class="menu-ic" data-icon="export"></span><span class="menu-label">导出 Word</span></button>
+    <button type="button" id="btn-export-pdf" class="menu-item"><span class="menu-ic" data-icon="export"></span><span class="menu-label">导出 PDF</span></button>
+    <button type="button" id="btn-print" class="menu-item"><span class="menu-ic" data-icon="print"></span><span class="menu-label">打印…</span></button>
+    <div class="menu-row"><span>页面尺寸</span><select id="page-size" class="tb-select"><option value="A3">A3</option><option value="A4">A4</option><option value="A5">A5</option><option value="B5">B5</option><option value="Letter">Letter</option></select></div>
+    <div class="menu-sep"></div>
+    <button type="button" id="btn-reveal" class="menu-item"><span class="menu-ic" data-icon="folder"></span><span class="menu-label">在文件夹中显示</span></button>
+    <button type="button" id="btn-quit" class="menu-item"><span class="menu-ic" data-icon="close"></span><span class="menu-label">退出</span></button>
+  </div>
+
+  <div class="more-menu" id="more-menu" hidden>
+    <div class="menu-title">视图</div>
+    <button type="button" id="btn-theme" class="menu-item"><span class="menu-ic" data-icon="theme"></span><span class="menu-label">主题</span></button>
+    <div class="menu-row palette-row">
+      <span>调色板</span>
+      <input type="color" id="color-bg" title="背景色" />
+      <input type="color" id="color-paper" title="纸张色" />
+      <input type="color" id="color-ink" title="文字色" />
+      <input type="color" id="color-select" title="框选高亮" />
+    </div>
+    <div class="menu-row"><span>缩放</span><button type="button" id="btn-zoom-out" class="mini">-</button><span id="zoom-label">100%</span><button type="button" id="btn-zoom-in" class="mini">+</button></div>
+    <div class="menu-row language-row"><span>语言</span><select id="language-select" class="language-select" aria-label="语言"><option value="zh-CN">简体中文</option><option value="en">English</option></select></div>
+    <div class="menu-sep"></div>
+    <button type="button" id="btn-fonts" class="menu-item"><span class="menu-ic" data-icon="font"></span><span class="menu-label">字体库</span></button>
+    <button type="button" id="btn-plugins" class="menu-item"><span class="menu-ic" data-icon="plugin"></span><span class="menu-label">插件管理</span></button>
+    <button type="button" id="btn-dsh" class="menu-item"><span class="menu-ic" data-icon="plugin"></span><span class="menu-label">DSH 接入</span></button>
+    <button type="button" id="btn-check-update" class="menu-item" hidden><span class="menu-ic" data-icon="refresh"></span><span class="menu-label">检查更新</span></button>
+    <button type="button" id="btn-about" class="menu-item"><span class="menu-ic" data-icon="info"></span><span class="menu-label">关于</span></button>
+  </div>
+
+  <div class="layout">
+    <aside class="outline" id="outline"></aside>
+    <div class="outline-resizer" id="outline-resizer" role="separator" aria-orientation="vertical" aria-label="调整目录宽度"></div>
+    <main class="workspace" id="workspace">
+      <div class="paper" id="blocks"></div>
+    </main>
+  </div>
+
+  <aside class="font-panel" id="font-panel" hidden>
+    <div class="font-panel-head">
+      <strong>字体库</strong>
+      <button type="button" class="font-panel-close" data-font-close title="关闭">×</button>
+    </div>
+    <div class="font-list" id="font-list"></div>
+    <div class="font-panel-actions">
+      <button type="button" id="btn-font-add">添加字体…</button>
+      <input type="file" id="font-file" accept=".ttf,.otf,.woff,.woff2,font/ttf,font/otf,font/woff,font/woff2" hidden />
+    </div>
+    <p class="font-panel-hint">支持 TTF / OTF / WOFF；字体只保存在本机。</p>
+  </aside>
+
+  <aside class="search" id="search" hidden></aside>
+  <aside class="plugins" id="plugins" hidden></aside>
+  <aside class="dsh-panel" id="dsh-panel" hidden>
+    <div class="dsh-head">
+      <div class="dsh-title-wrap">
+        <span class="dsh-dot" id="dsh-dot"></span>
+        <div>
+          <strong class="dsh-title">DSH 接入</strong>
+          <div class="dsh-sub">外部 AI 写入通道</div>
+        </div>
+      </div>
+      <button type="button" id="dsh-close" class="dsh-close" title="关闭">×</button>
+    </div>
+    <div id="dsh-status" class="dsh-status">未启用</div>
+    <div class="dsh-actions">
+      <button type="button" id="dsh-enable" class="dsh-btn dsh-primary">启用服务</button>
+      <button type="button" id="dsh-disable" class="dsh-btn" disabled>停止服务</button>
+      <button type="button" id="dsh-copy" class="dsh-btn" disabled>复制连接地址</button>
+    </div>
+    <details class="dsh-details">
+      <summary>连接信息</summary>
+      <label class="dsh-field">MCP 地址<input id="dsh-url" class="dsh-input" readonly /></label>
+      <label class="dsh-field">访问令牌<span class="dsh-token-row"><input id="dsh-token" class="dsh-input" type="password" readonly /><button type="button" id="dsh-toggle-token" class="dsh-mini">显示</button><button type="button" id="dsh-copy-token" class="dsh-mini">复制</button></span></label>
+    </details>
+    <div class="dsh-help">
+      <div class="dsh-help-title">在 DSH 中使用</div>
+      <ol>
+        <li>在 DSH 插件管理中安装 dsh-notebook-mcp。</li>
+        <li>保持日记运行，并启用服务。</li>
+        <li>新开一个 DSH 会话，可拖入目标 .dfy 文件。</li>
+        <li>在 DSH 对话框中说明编辑要求，由 DSH 完成。</li>
+      </ol>
+    </div>
+  </aside>
+  <aside class="link" id="link" hidden>
+    <input id="link-input" class="link-input" placeholder="https://…" />
+    <div class="link-actions">
+      <button type="button" id="btn-link-apply">插入链接</button>
+      <button type="button" id="btn-link-cancel">取消</button>
+    </div>
+  </aside>
+  <aside class="mark-panel" id="comment-panel" hidden>
+    <div class="mark-row">
+      <label>颜色 <button type="button" id="comment-color-btn" class="color-swatch" data-color-anchor="1"></button><input type="color" id="comment-color" hidden /><input id="comment-color-code" class="mark-color-code" maxlength="7" spellcheck="false" aria-label="色号" /></label>
+    </div>
+    <div class="color-palette" id="comment-palette" data-color-input="comment-color" data-color-preview="comment-color-btn" data-color-code="comment-color-code"></div>
+    <div class="link-actions comment-actions">
+      <button type="button" id="btn-comment-delete" class="mark-delete">删除注释</button>
+      <span class="mark-actions-spacer"></span>
+      <button type="button" id="btn-comment-cancel">取消</button>
+      <button type="button" id="btn-comment-apply">应用</button>
+    </div>
+  </aside>
+  <aside class="mark-panel style-panel" id="text-color-panel" hidden>
+    <div class="mark-row">
+      <label>颜色 <button type="button" id="text-color-btn" class="color-swatch" data-color-anchor="1"></button><input type="color" id="text-color" value="#c00000" hidden /><input id="text-color-code" class="mark-color-code" maxlength="7" spellcheck="false" aria-label="文字颜色" /></label>
+    </div>
+    <div class="color-palette" id="text-color-palette" data-color-input="text-color" data-color-preview="text-color-btn" data-color-code="text-color-code"></div>
+    <div class="link-actions style-panel-actions">
+      <button type="button" id="btn-text-color-cancel">取消</button>
+      <button type="button" id="btn-text-color-apply">应用</button>
+    </div>
+  </aside>
+  <aside class="mark-panel style-panel" id="highlight-color-panel" hidden>
+    <div class="highlight-modes" id="highlight-modes" role="radiogroup" aria-label="高亮样式">
+      <button type="button" class="highlight-mode is-active" data-highlight-mode="marker" role="radio" aria-checked="true"><span class="hm-preview hm-marker"><span class="hm-marker-glyph">A</span></span><span>马克笔</span></button>
+      <button type="button" class="highlight-mode" data-highlight-mode="solid" role="radio" aria-checked="false"><span class="hm-preview hm-solid">A</span><span>直线</span></button>
+      <button type="button" class="highlight-mode" data-highlight-mode="wavy" role="radio" aria-checked="false"><span class="hm-preview hm-wavy">A</span><span>波浪线</span></button>
+      <button type="button" class="highlight-mode" data-highlight-mode="dashed" role="radio" aria-checked="false"><span class="hm-preview hm-dashed">A</span><span>虚线</span></button>
+    </div>
+    <div class="mark-row">
+      <label>颜色 <button type="button" id="highlight-color-btn" class="color-swatch" data-color-anchor="1"></button><input type="color" id="highlight-color" value="#ffe27a" hidden /><input id="highlight-color-code" class="mark-color-code" maxlength="7" spellcheck="false" aria-label="高亮颜色" /></label>
+    </div>
+    <div class="color-palette" id="highlight-color-palette" data-color-input="highlight-color" data-color-preview="highlight-color-btn" data-color-code="highlight-color-code"></div>
+    <div class="link-actions style-panel-actions highlight-panel-actions">
+      <button type="button" id="btn-highlight-delete" class="mark-delete">删除高亮</button>
+      <span class="mark-actions-spacer"></span>
+      <button type="button" id="btn-highlight-color-cancel">取消</button>
+      <button type="button" id="btn-highlight-color-apply">应用</button>
+    </div>
+  </aside>
+  <aside class="mark-panel" id="mark-panel" hidden>
+    <div class="mark-row mark-icon-row">
+      <span class="mark-row-label">图标</span>
+      <div class="mark-icon-grid" id="mark-icon-grid" role="radiogroup" aria-label="标记图标"></div>
+      <input id="mark-icon" type="hidden" value="star" />
+    </div>
+    <div class="mark-icon-actions">
+      <button type="button" id="mark-icon-add-btn" class="mark-icon-add-btn">添加图标</button>
+    </div>
+    <div class="mark-icon-add-form" id="mark-icon-add-form" hidden>
+      <input id="mark-icon-add-input" maxlength="8" placeholder="输入或粘贴一个图标" />
+      <button type="button" id="mark-icon-add-confirm">添加</button>
+      <button type="button" id="mark-icon-add-cancel">取消</button>
+    </div>
+    <div class="mark-icon-divider"></div>
+    <div class="mark-row">
+      <label>颜色 <button type="button" id="mark-color-btn" class="color-swatch" data-color-anchor="1"></button><input type="color" id="mark-color" hidden /><input id="mark-color-code" class="mark-color-code" maxlength="7" spellcheck="false" aria-label="色号" /></label>
+    </div>
+    <div class="color-palette" id="mark-palette" data-color-input="mark-color" data-color-preview="mark-color-btn" data-color-code="mark-color-code"></div>
+    <div class="link-actions mark-panel-actions">
+      <button type="button" id="btn-mark-delete" class="mark-delete">删除标记</button>
+      <span class="mark-actions-spacer"></span>
+      <button type="button" id="btn-mark-cancel">取消</button>
+      <button type="button" id="btn-mark-apply">应用</button>
+    </div>
+  </aside>
+
+  <div class="about-overlay" id="about-overlay" hidden>
+    <section class="about-window" role="dialog" aria-modal="true" aria-labelledby="about-heading">
+      <button type="button" class="about-close" id="btn-about-close" aria-label="关闭关于">×</button>
+      <div class="about-scroll" id="about-scroll">
+        <div class="about-page">
+          <h1 class="about-title" id="about-heading">关 于</h1>
+          <p class="about-version" id="about-version"></p>
+          <p class="about-lead">一个本地优先的块式笔记与文档编辑器</p>
+          <p class="about-copy">所有功能免费使用<br>文档默认保存在本机</p>
+          <p class="about-copy">源代码以 MIT 许可证开源，完整文本见 LICENSE</p>
+          <p class="about-copy">软件内置思源黑体、霞鹜文楷、MiSans<br>均允许商业使用<br><span class="about-font-note">（字体许可证随字体文件附带）</span></p>
+          <p class="about-copy">应用图标基于上善无形、ZipZipPipe 的原作修改<br>依 CC BY-NC-SA 4.0 授权，仅限非商业用途</p>
+          <img class="about-icon" src="./assets/about-icon.png" width="240" height="239" decoding="async" alt="大肥鱼笔记本应用图标">
+          <p class="about-author">—— 软件作者：续止</p>
+          <img class="about-logo" src="./assets/about-logo.png" width="320" height="320" decoding="async" alt="作者标识">
+          <p class="about-fine">作者专属标识仅出现在官方安装包中，不包含在源代码仓库中，<br>也不属于源代码的 MIT 许可范围。</p>
+          <p class="about-fine">版权所有 © 2026 续止</p>
+          <section class="about-support">
+            <h2 class="about-support-title">————&nbsp; 支持作者&nbsp; ————</h2>
+            <p class="about-copy">如果这个软件您觉得很不错，可以通过官方安装包中的方式支持作者<br>感谢支持</p>
+            <p class="about-note">（自愿原则，金额随意，不影响任何功能使用）</p>
+            <img class="about-qr" src="./assets/about-qr.png" width="720" height="381" loading="lazy" decoding="async" alt="支持作者">
+          </section>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="toast" id="toast" hidden></div>
+  <footer class="status" id="status"></footer>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

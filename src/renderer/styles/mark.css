@@ -1,0 +1,238 @@
+/* ---------------------------------------------------------- mark shapes */
+
+.block-badge-shape {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  font-size: 15px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.block-badge-shape.shape-square,
+.block-badge-shape.shape-diamond,
+.block-badge-shape.shape-star {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  transform: none;
+  font-size: 15px;
+}
+.block-badge-image { width: 16px; height: 16px; object-fit: cover; border-radius: 3px; display: block; }
+
+/* ---------------------------------------------------------- mark panel */
+
+.mark-panel {
+  position: fixed;
+  left: 50%;
+  top: 60px;
+  transform: translateX(-50%);
+  width: 420px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgb(0 0 0 / 12%);
+  padding: 10px;
+  z-index: var(--z-mark-panel);
+  font-size: 12px;
+}
+
+#comment-panel { width: 420px; }
+
+.mark-row { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; }
+.mark-row label { display: flex; gap: 4px; align-items: center; color: #6f665a; }
+.mark-row-label { flex: none; color: #6f665a; white-space: nowrap; }
+.mark-icon-row { margin-bottom: 8px; }
+.mark-icon-grid { flex: 1; min-width: 0; display: flex; align-items: center; gap: 3px; flex-wrap: wrap; }
+.mark-icon-choice {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fff;
+  color: #5f574b;
+  font-size: 13px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.mark-icon-choice:hover { background: #f5f1e8; }
+.mark-icon-choice.is-active {
+  border-color: #4d6bfe;
+  background: #eef1ff;
+  box-shadow: 0 0 0 2px rgb(77 107 254 / 16%);
+}
+.mark-icon-choice { cursor: pointer; }
+.mark-icon-choice.is-dragging { cursor: grabbing; opacity: 0.4; }
+.mark-icon-choice.is-drop-target { box-shadow: 0 0 0 2px #4d6bfe; }
+.mark-icon-choice.is-drop-before::before,
+.mark-icon-choice.is-drop-after::after {
+  content: '';
+  position: absolute;
+  top: 1px;
+  bottom: 1px;
+  width: 2px;
+  border-radius: 1px;
+  background: #4d6bfe;
+}
+.mark-icon-choice.is-drop-before::before { left: -3px; }
+.mark-icon-choice.is-drop-after::after { right: -3px; }
+.mark-icon-add-btn {
+  width: auto;
+  min-width: 64px;
+  height: 28px;
+  padding: 0 9px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fff;
+  color: #5f574b;
+  font-size: 12px;
+  line-height: 1;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.mark-icon-add-btn:hover { background: #f5f1e8; }
+.mark-icon-actions { display: flex; justify-content: flex-end; margin: -2px 0 6px; }
+.mark-icon-divider {
+  height: 2px;
+  margin: 2px 0 10px;
+  border-radius: 1px;
+  background: #d7d0c3;
+}
+.mark-icon-add-form { display: flex; gap: 6px; align-items: center; margin: -4px 0 10px; }
+.mark-icon-add-form input {
+  flex: 1;
+  height: 26px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0 7px;
+  font-size: 12px;
+}
+.mark-icon-add-form button {
+  height: 26px;
+  padding: 0 9px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fff;
+  color: #5f574b;
+  font-size: 12px;
+  cursor: pointer;
+}
+.mark-row select, .mark-row input[type="text"], .mark-row input:not([type]) { border: 1px solid var(--line); border-radius: 6px; padding: 3px 6px; font-size: 12px; }
+.mark-row input[type="color"] { width: 28px; height: 22px; border: 1px solid var(--line); border-radius: 4px; padding: 0; background: #fff; }
+.mark-color-code {
+  width: 72px;
+  height: 22px;
+  padding: 0 4px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: transparent;
+  color: #8a8175;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+.mark-color-code:hover { border-color: var(--line); background: #fff; }
+.mark-color-code:focus { outline: none; border-color: #4d6bfe; background: #fff; color: #4a443b; }
+.mark-panel-actions { margin-top: 10px; }
+.comment-actions { margin-top: 10px; }
+.style-panel-actions { margin-top: 10px; }
+.mark-panel-actions .mark-actions-spacer,
+.style-panel-actions .mark-actions-spacer,
+.comment-actions .mark-actions-spacer { flex: 1; }
+#btn-mark-delete,
+#btn-comment-delete,
+#btn-highlight-delete { color: #b4452f; border-color: #e3c5bd; }
+#btn-mark-delete:hover,
+#btn-comment-delete:hover,
+#btn-highlight-delete:hover { background: #fbefec; }
+
+
+.highlight-modes {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+.highlight-mode {
+  flex: 1;
+  height: 32px;
+  padding: 0 4px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fff;
+  color: #5f574b;
+  font-size: 11px;
+  display: grid;
+  grid-template-columns: 18px auto;
+  align-items: center;
+  justify-content: start;
+  column-gap: 4px;
+  padding: 0 10px;
+  cursor: pointer;
+}
+.highlight-mode:hover { background: #f5f1e8; }
+.highlight-mode.is-active {
+  border-color: #4d6bfe;
+  background: #eef1ff;
+  box-shadow: 0 0 0 2px rgb(77 107 254 / 14%);
+}
+.hm-preview {
+  display: inline-block;
+  width: 18px;
+  line-height: 1;
+  font-size: 12.5px;
+  text-align: center;
+}
+.hm-marker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  padding: 0;
+  background: none;
+  justify-self: center;
+}
+.hm-marker-glyph {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  border-radius: 2px;
+  background: var(--highlight-color, #ffe27a);
+  line-height: 1;
+}
+.hm-solid { text-decoration: underline solid var(--highlight-color, #c00000); text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
+.hm-wavy { text-decoration: underline wavy var(--highlight-color, #c00000); text-underline-offset: 3px; }
+.hm-dashed {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  text-decoration: none;
+}
+.hm-dashed::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -3.25px;
+  width: 18px;
+  height: 1.25px;
+  background-image: linear-gradient(
+    to right,
+    var(--highlight-color, #c00000) 0 4px,
+    transparent 4px 7px,
+    var(--highlight-color, #c00000) 7px 11px,
+    transparent 11px 14px,
+    var(--highlight-color, #c00000) 14px 18px
+  );
+}

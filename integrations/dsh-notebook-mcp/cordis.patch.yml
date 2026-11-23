@@ -1,0 +1,8 @@
+- insert:
+    - id: dafeiyu-notebook-mcp
+      name: '@deepseek-ai/dsh-mcp-client'
+      config:
+        serverName: notebook
+        transport: streamable-http
+        url: http://127.0.0.1:41337/mcp?token=REPLACE_WITH_NOTEBOOK_TOKEN
+        failOnStartupError: false

@@ -1,0 +1,132 @@
+/* 表格插入选择器与单元格编辑 */
+
+.table-picker {
+  position: fixed;
+  z-index: var(--z-modal);
+  width: 292px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--paper);
+  box-shadow: 0 14px 34px rgb(0 0 0 / 18%);
+  color: var(--ink);
+}
+.table-picker[hidden] { display: none; }
+.table-picker-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.table-picker-close {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 19px;
+  line-height: 1;
+  cursor: pointer;
+}
+.table-picker-close:hover { background: #f3eee4; }
+.table-picker-grid {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  gap: 4px;
+}
+.table-picker-grid button {
+  width: 100%;
+  height: 26px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: #f7f4ee;
+  cursor: pointer;
+  transition: background-color .08s ease, border-color .08s ease;
+}
+.table-picker-grid button:hover { border-color: #d8d0c3; }
+.table-picker-grid button.is-active {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 18%, white);
+}
+.table-picker-custom-title {
+  margin-top: 12px;
+  padding-top: 9px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 11px;
+}
+.table-picker-custom {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  font-size: 12px;
+}
+.table-picker-custom input {
+  width: 58px;
+  height: 28px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fff;
+  color: var(--ink);
+  text-align: center;
+}
+.table-picker-apply {
+  margin-left: auto;
+  height: 28px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fff;
+  color: var(--ink);
+  cursor: pointer;
+}
+.table-picker-apply:hover { background: #f3eee4; }
+
+.doc-table td:focus,
+.doc-table th:focus {
+  outline: 2px solid color-mix(in srgb, var(--accent) 55%, transparent);
+  outline-offset: -2px;
+}
+
+body.is-table-resizing { user-select: none; cursor: col-resize; }
+body.is-table-resizing.is-table-resizing-row { cursor: row-resize; }
+
+.doc-table td.is-cell-selected,
+.doc-table th.is-cell-selected {
+  background: #eef2ff;
+  background: color-mix(in srgb, var(--accent) 12%, #fff);
+}
+
+.block-chart { margin: 10px 0; }
+.chart-card {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--paper);
+  padding: 10px 12px 6px;
+  overflow: hidden;
+}
+.chart-title { margin-bottom: 4px; color: #2f2b25; font-size: 13px; font-weight: 600; }
+.chart-svg { display: block; width: 100%; height: auto; overflow: visible; }
+
+.chart-editor-overlay { position: fixed; inset: 0; z-index: var(--z-overlay); display: flex; align-items: center; justify-content: center; background: rgb(20 18 15 / 35%); }
+.chart-editor-card { width: min(720px, calc(100vw - 40px)); max-height: calc(100vh - 60px); overflow: auto; padding: 16px; border-radius: 12px; background: var(--paper); border: 1px solid var(--line); box-shadow: 0 18px 50px rgb(0 0 0 / 22%); font-size: 12px; }
+.chart-editor-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; font-size: 14px; }
+.chart-editor-close { border: 0; background: transparent; color: var(--muted); font-size: 18px; cursor: pointer; }
+.chart-editor-meta { display: flex; flex-wrap: wrap; gap: 10px; }
+.chart-editor-meta label { display: flex; flex-direction: column; gap: 4px; color: var(--muted); flex: 1; min-width: 180px; }
+.chart-editor-meta input, .chart-editor-meta select, .chart-editor-row input { width: 100%; box-sizing: border-box; border: 1px solid var(--line); border-radius: 6px; background: #fff; color: var(--ink); padding: 5px 7px; font: inherit; }
+.chart-editor-grid { margin-top: 12px; display: flex; flex-direction: column; gap: 5px; }
+.chart-editor-row { display: grid; grid-template-columns: minmax(130px, 1.2fr) repeat(12, minmax(70px, 1fr)); gap: 5px; }
+.chart-editor-header { color: var(--muted); align-items: center; }
+.chart-editor-header label { min-width: 0; }
+.chart-editor-header input { padding: 3px 5px; }
+.chart-editor-add { display: flex; gap: 6px; margin-top: 10px; }
+.chart-editor-add button, .chart-editor-actions button { border: 1px solid var(--line); border-radius: 6px; background: #fff; padding: 5px 10px; font: inherit; cursor: pointer; }
+.chart-editor-actions { display: flex; justify-content: flex-end; gap: 6px; margin-top: 14px; }
+.chart-editor-actions .chart-editor-apply { background: var(--accent); border-color: var(--accent); color: #fff; }

@@ -1,0 +1,166 @@
+/* 关于窗口：独立于文档排版，保持内容与编辑器模块解耦。 */
+.about-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  background: rgb(20 18 15 / 42%);
+}
+
+.about-overlay[hidden] { display: none; }
+
+.about-window {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: min(720px, calc(100vw - 48px));
+  height: min(calc(100vh - 8px), 960px);
+  overflow: hidden;
+  border: 1px solid rgb(31 31 31 / 10%);
+  border-radius: 14px;
+  background: #fbfaf7;
+  box-shadow: 0 24px 60px rgb(20 18 15 / 24%);
+  contain: layout paint;
+}
+
+.about-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 1;
+  width: 32px;
+  height: 32px;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 78%);
+  color: #6e685f;
+  font-size: 22px;
+  line-height: 28px;
+  cursor: pointer;
+}
+
+.about-close:hover {
+  border-color: var(--line);
+  color: var(--ink);
+}
+
+.about-scroll {
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+  -webkit-overflow-scrolling: touch;
+}
+
+.about-page {
+  width: min(100%, 620px);
+  margin: 0 auto;
+  padding: 24px 40px 36px;
+  color: var(--ink);
+  text-align: center;
+}
+
+.about-title {
+  margin: 0 0 20px;
+  font-size: 44px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1.1;
+}
+
+.about-version,
+.about-lead,
+.about-author {
+  margin: 0 0 14px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.about-copy {
+  margin: 0 0 12px;
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.about-page img {
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+}
+
+.about-font-note {
+  display: inline-block;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.about-icon {
+  display: block;
+  width: 31%;
+  max-width: 120px;
+  margin: 4px auto 24px;
+  border-radius: 8px;
+}
+
+.about-author { margin-top: 10px; margin-bottom: 6px; }
+
+.about-logo {
+  display: block;
+  width: 50%;
+  max-width: 220px;
+  margin: 0 auto 8px;
+}
+
+.about-fine {
+  margin: 0 0 4px;
+  color: #6e685f;
+  font-size: 10px;
+  line-height: 1.55;
+}
+
+.about-support {
+  margin-top: 10px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+.about-support-title {
+  margin: 0 0 10px;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.about-note {
+  margin: 0 0 10px;
+  color: #6e685f;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.about-qr {
+  display: block;
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto;
+  border-radius: 8px;
+}
+
+body.about-open { overflow: hidden; }
+
+@media (max-height: 900px) {
+  .about-page { zoom: 0.86; }
+}
+
+@media (max-height: 760px) {
+  .about-page { padding-top: 24px; }
+  .about-title { font-size: 42px; margin-bottom: 18px; }
+  .about-version, .about-lead, .about-author { margin-bottom: 14px; }
+  .about-copy { margin-bottom: 14px; }
+  .about-icon { max-width: 120px; }
+  .about-logo { max-width: 150px; }
+}
