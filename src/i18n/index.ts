@@ -50,7 +50,7 @@ const EN: Record<string, string> = {
   '外部 AI 写入通道': 'External AI write channel',
   '大肥鱼笔记本': 'Dafeiyu Notebook',
   '作者标识': 'Author mark',
-  '作者专属标识仅出现在官方安装包中，不包含在源代码仓库中，': 'Author-only marks appear only in official installers and are not included in the source repository.',
+  '作者专属标识仅用于官方发布，不包含在源代码仓库中，': 'Author-only marks are used only in official releases and are not included in the source repository.',
   '也不属于源代码的 MIT 许可范围。': 'They are not covered by the MIT License for the source code.',
   '如果这个软件您觉得很不错，可以通过官方安装包中的方式支持作者': 'If you find this software useful, you can support the author through the official installer.',
   '感谢支持': 'Thank you for your support.',
