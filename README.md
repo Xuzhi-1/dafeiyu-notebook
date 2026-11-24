@@ -40,9 +40,9 @@ Windows 10 / 11 x64
 
 <sub>Download</sub>
 
-正式安装包发布在 GitHub Releases 页面。
+正式安装包和便携版发布在 [GitHub Releases](https://github.com/Xuzhi-1/dafeiyu-notebook/releases) 页面。
 
-<sub>Official installers are published on the GitHub Releases page.</sub>
+<sub>Official installers and the portable archive are published on [GitHub Releases](https://github.com/Xuzhi-1/dafeiyu-notebook/releases).</sub>
 
 ## 开发
 

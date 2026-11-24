@@ -8,6 +8,14 @@
   "license": "MIT",
   "author": "续止",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Xuzhi-1/dafeiyu-notebook.git"
+  },
+  "homepage": "https://github.com/Xuzhi-1/dafeiyu-notebook",
+  "bugs": {
+    "url": "https://github.com/Xuzhi-1/dafeiyu-notebook/issues"
+  },
   "scripts": {
     "build": "node scripts/clean.mjs && tsc -p tsconfig.json && node scripts/copy-assets.mjs",
     "dev": "npm run build && electron . --dev",
@@ -47,6 +55,20 @@
       "buildResources": "build"
     },
     "asar": false,
+    "extraFiles": [
+      {
+        "from": "LICENSE",
+        "to": "LICENSE"
+      },
+      {
+        "from": "README.md",
+        "to": "README.md"
+      },
+      {
+        "from": "THIRD-PARTY-NOTICES.md",
+        "to": "THIRD-PARTY-NOTICES.md"
+      }
+    ],
     "files": [
       "dist/**/*",
       "electron/**/*",
