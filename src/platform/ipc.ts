@@ -113,7 +113,7 @@ export interface MoyeApi {
     onMaximized(callback: (value: boolean) => void): () => void;
   };
   getPathForFile(file: File): string;
-  info(): Promise<{ version: string; userData: string; envUserData: string | null; argv: string[]; pluginRoots: string[]; bounds?: { width: number; height: number } | null; maximized?: boolean; dirty?: boolean }>;
+  info(): Promise<{ version: string; isPackaged: boolean; userData: string; envUserData: string | null; argv: string[]; pluginRoots: string[]; bounds?: { width: number; height: number } | null; maximized?: boolean; dirty?: boolean }>;
   plugins: {
     list(): Promise<PluginManifestPayload[]>;
     openDir(): Promise<string>;

@@ -3,7 +3,7 @@
  * 具体动作在 app/blockActions、app/editorRuntime、app/windowChrome。
  */
 
-import { docFromRaw, docToV2 } from '../core/doc.js';
+import { createDoc, docFromRaw, docToV2 } from '../core/doc.js';
 import { countDocumentContent } from '../core/textStats.js';
 import { selectMany } from '../core/selection.js';
 import { Store } from '../core/store.js';
@@ -95,12 +95,14 @@ async function loadStartupDoc(): Promise<{ doc: Doc; path: string | null; error:
   }
   const api = platform();
   const startupPath = await api?.takeStartupPath?.() ?? null;
-  if (!startupPath || !api) return { doc: demoDoc, path: null, error: '', dirty: false };
+  const packaged = await api?.info?.().then((info) => info.isPackaged).catch(() => false) ?? false;
+  const fallback = (): Doc => (packaged ? createDoc(t('无标题文档')) : demoDoc);
+  if (!startupPath || !api) return { doc: fallback(), path: null, error: '', dirty: false };
   try {
     const payload = await api.readPath(startupPath);
     return { doc: docFromRaw(payload.data, t('无标题文档')), path: payload.path, error: '', dirty: false };
   } catch {
-    return { doc: demoDoc, path: null, error: t('打开文档失败，文件可能已损坏或路径不可用'), dirty: false };
+    return { doc: fallback(), path: null, error: t('打开文档失败，文件可能已损坏或路径不可用'), dirty: false };
   }
 }
 

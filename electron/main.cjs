@@ -802,6 +802,7 @@ ipcMain.handle('app:info', (event) => {
   const target = windowFromEvent(event);
   return {
     version: app.getVersion(),
+    isPackaged: app.isPackaged,
     userData: app.getPath('userData'),
     envUserData: process.env.DAFEIYU_USER_DATA || null,
     argv: process.argv,
