@@ -7,7 +7,10 @@
 !macroend
 
 !macro customUnInstall
-  ReadRegStr $0 HKCU "Software\Classes\.dfy\ShellNew" "FileName"
-  StrCmp $0 "$INSTDIR\resources\app\大肥鱼笔记.dfy" 0 +2
-    DeleteRegKey HKCU "Software\Classes\.dfy\ShellNew"
+  DeleteRegKey HKCU "Software\Classes\Applications\DafeiyuNotebook.exe"
+  DeleteRegKey HKCU "Software\Classes\Dafeiyu.Notebook.dfy"
+  ReadRegStr $0 HKCU "Software\Classes\.dfy" ""
+  StrCmp $0 "Dafeiyu.Notebook.dfy" 0 done
+    DeleteRegKey HKCU "Software\Classes\.dfy"
+  done:
 !macroend
