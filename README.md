@@ -1,5 +1,7 @@
 # 大肥鱼笔记本
 
+[![Release](https://img.shields.io/github/v/release/Xuzhi-1/dafeiyu-notebook?label=release&style=flat-square)](https://github.com/Xuzhi-1/dafeiyu-notebook/releases/latest)
+
 <sub>Dafeiyu Notebook</sub>
 
 一个本地优先的块式笔记与文档编辑器，使用 TypeScript、Electron 和原生 tsc 构建。
