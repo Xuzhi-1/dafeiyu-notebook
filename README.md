@@ -151,6 +151,16 @@ DSH 接入通过右上角“更多”菜单中的“DSH 接入”启用，默认
 
 <sub>Official installers may include author-only assets not present in the source repository. Those assets are not covered by the MIT License.</sub>
 
+## 支持作者
+
+<sub>Support</sub>
+
+如果这个项目对你的工作或学习有帮助，可以请作者喝杯咖啡：
+
+<sub>If this project helps you, you can buy the author a coffee:</sub>
+
+[请我喝咖啡](https://afdian.com/a/dafeiyunotebook)
+
 ## 贡献
 
 <sub>Contributing</sub>
