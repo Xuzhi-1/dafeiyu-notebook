@@ -30,7 +30,6 @@ const EN: Record<string, string> = {
   '关 于': 'About',
   '关于': 'About',
   '检查更新': 'Check for Updates',
-  '当前版本 {version} · 更新地址尚未配置': 'Version {version} · Update URL is not configured yet',
   '关联 .dfy 文件': 'Associate .dfy files',
   '删除标记': 'Delete Mark',
   '删除注释': 'Delete Comment',

@@ -235,11 +235,7 @@ export function installToolbar({ state, files, view, actions, plugins, toast }: 
   state.store.subscribe(refreshFontFamily);
   refreshFontFamily();
   bind('btn-check-update', () => {
-    void window.moye?.info?.().then((info) => {
-      toast(t('当前版本 {version} · 更新地址尚未配置', { version: info?.version ?? '?' }), 4200);
-    }).catch(() => {
-      toast(t('当前版本 {version} · 更新地址尚未配置', { version: '?' }), 4200);
-    });
+    void window.moye?.openExternal?.('https://github.com/Xuzhi-1/dafeiyu-notebook/releases');
   });
   bind('btn-plugins', () => plugins.panel?.toggle());
   bind('btn-quit', () => window.moye?.windowControls?.close());
